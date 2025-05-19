@@ -73,7 +73,3 @@ Contributions are welcome! Feel free to:
 Please follow the existing style conventions and update this README if you add new files.
 
 ---
-
-## License
-
-This repository is released under the [MIT License](LICENSE). Feel free to use, modify, and distribute.

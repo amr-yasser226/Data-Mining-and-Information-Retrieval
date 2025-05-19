@@ -36,25 +36,6 @@ These materials provide concise summaries and practice questions to reinforce yo
 
 ---
 
-## Lecture Summaries
-
-Each `Lecture XX.md` file covers one lecture:
-
-1. **Lecture 01**: Introduction to Data Mining and IR
-2. **Lecture 02**: Data Preprocessing and Cleaning
-3. **Lecture 03**: Similarity Measures and Distance Metrics
-4. **Lecture 04**: Association Rule Mining
-5. **Lecture 05**: Classification Algorithms
-6. **Lecture 06**: Clustering Techniques
-7. **Lecture 07**: Dimensionality Reduction
-8. **Lecture 08**: Evaluation Metrics
-9. **Lecture 09**: Indexing and Inverted Files
-10. **Lecture 10**: Boolean Retrieval Models
-11. **Lecture 11**: Vector-Space Model and Ranking
-12. **Lecture 12**: Web Search and PageRank
-
----
-
 ## MCQ Questions
 
 The `MCQ Questions.md` file includes a set of multiple-choice questions designed to:

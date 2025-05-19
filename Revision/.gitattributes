@@ -1,0 +1,2 @@
+# enforce LF in markdown files
+*.md text eol=lf

@@ -101,27 +101,27 @@
 ### 7. Rocchio Algorithm
 
 #### 1. What does Rocchio aim to do?  
-Shift the query vector toward relevant documents and away from non-relevant ones in a vector space model (VSM).
+Shift the query vector toward relevant documents and away from non-relevant ones in a Vector Space Model (VSM).
 
 ---
 
 #### 2. Rocchio’s Relevance-Feedback Formula
 
 **Given**  
-- Original query vector: \(\displaystyle \vec q_0\)  
-- Relevant document set: \(D_r\)  
-- Non-relevant document set: \(D_{nr}\)  
-- Weighting parameters: \(\alpha, \beta, \gamma\)
+- Original query vector: $\displaystyle \vec{q}_0$  
+- Relevant document set: $D_r$  
+- Non-relevant document set: $D_{nr}$  
+- Weighting parameters: $\alpha, \beta, \gamma$
 
 **Compute**  
 $$
 \boxed{
-\vec q_{\rm new}
-= \; \alpha\,\vec q_0
+\vec{q}_\text{new}
+= \; \alpha\,\vec{q}_0
 \;+\;
-\beta\,\frac{1}{\lvert D_r\rvert}\sum_{d\in D_r}\vec d
+\beta\,\frac{1}{|D_r|}\sum_{d \in D_r}\vec{d}
 \;-\;
-\gamma\,\frac{1}{\lvert D_{nr}\rvert}\sum_{d\in D_{nr}}\vec d
+\gamma\,\frac{1}{|D_{nr}|}\sum_{d \in D_{nr}}\vec{d}
 }
 $$
 
@@ -129,27 +129,29 @@ $$
 
 #### 3. Explanation of Terms
 
-- \(\alpha\,\vec q_0\)  
-  Retains a fraction \(\alpha\) of the original query.
+- **$\alpha\,\vec{q}_0$**  
+  Retains a fraction $\alpha$ of the original query.
 
-- \(\beta\,\dfrac{1}{\lvert D_r\rvert}\sum_{d\in D_r}\vec d\)  
-  Adds the centroid of relevant documents, scaled by \(\beta\).
+- **$\beta\,\dfrac{1}{|D_r|}\sum_{d\in D_r}\vec{d}$**  
+  Adds the centroid of relevant documents, scaled by $\beta$.
 
-- \(\gamma\,\dfrac{1}{\lvert D_{nr}\rvert}\sum_{d\in D_{nr}}\vec d\)  
-  Subtracts the centroid of non-relevant documents, scaled by \(\gamma\).
-
----
-
-#### 4. Roles of \(\alpha, \beta, \gamma\)
-
-- **\(\alpha\)**: weight of the original query  
-- **\(\beta\)**: weight of positive (relevant) feedback  
-- **\(\gamma\)**: weight of negative (non-relevant) feedback  
+- **$\gamma\,\dfrac{1}{|D_{nr}|}\sum_{d\in D_{nr}}\vec{d}$**  
+  Subtracts the centroid of non-relevant documents, scaled by $\gamma$.
 
 ---
 
-#### 5. Why Might Components Go Negative?  
-If \(\gamma\) (or \(\beta\)) is large, the subtraction (or addition) term can dominate, potentially producing negative vector components in \(\vec q_{\rm new}\). These are usually clamped to zero in practice.
+#### 4. Roles of $\alpha, \beta, \gamma$
+
+- **$\alpha$**: Weight of the original query  
+- **$\beta$**: Weight of positive (relevant) feedback  
+- **$\gamma$**: Weight of negative (non-relevant) feedback  
+
+---
+
+#### 5. Why Might Vector Components Go Negative?
+
+If $\gamma$ (or $\beta$) is large, the subtraction (or addition) term can dominate, potentially producing negative components in $\vec{q}_\text{new}$. In practice, these negative values are often clamped to zero.
+
 
 ---
 

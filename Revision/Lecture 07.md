@@ -169,15 +169,12 @@ Ranking: $d_2 > d_1$.
 
 *PRP ranks documents by:*
 
-A. Decreasing length
-B. Decreasing probability of relevance
-C. Increasing tf–idf score
+A. Decreasing length  
+B. Decreasing probability of relevance  
+C. Increasing tf–idf score  
 D. Random order
 
-<details>
-<summary>Answer</summary>
-B. The probabilistic retrieval framework ranks documents by decreasing probability of relevance.
-</details>
+<details> <summary>Answer</summary> B. The probabilistic retrieval framework ranks documents by decreasing probability of relevance. </details>
 
 ---
 
@@ -185,15 +182,12 @@ B. The probabilistic retrieval framework ranks documents by decreasing probabili
 
 *Unigram LM assumes:*
 
-A. Word probabilities are independent
-B. Dependence on the previous word
-C. Dependence on two previous words
+A. Word probabilities are independent  
+B. Dependence on the previous word  
+C. Dependence on two previous words  
 D. Document length normalization
 
-<details>
-<summary>Answer</summary>
-A. A unigram language model treats each word’s probability as independent of context.
-</details>
+<details> <summary>Answer</summary> A. A unigram language model treats each word’s probability as independent of context. </details>
 
 ---
 
@@ -201,63 +195,51 @@ A. A unigram language model treats each word’s probability as independent of c
 
 *Without smoothing, a query with an unseen term yields:*
 
-A. High probability
-B. Zero probability
-C. One
+A. High probability  
+B. Zero probability  
+C. One  
 D. Negative probability
 
-<details>
-<summary>Answer</summary>
-B. Without smoothing, encountering an unseen term gives the document zero probability.
-</details>
+<details> <summary>Answer</summary> B. Without smoothing, encountering an unseen term gives the document zero probability. </details>
 
 ---
 
 ### Question 4:
 
-*Bigram probability \$P(w\_i\mid w\_{i-1},d)\$ captures:*
+*Bigram probability* `P(w_i | w_{i-1}, d)` *captures:*
 
-A. Document length
-B. Previous-word dependence
-C. Term frequency only
+A. Document length  
+B. Previous-word dependence  
+C. Term frequency only  
 D. TF–IDF weighting
 
-<details>
-<summary>Answer</summary>
-B. The bigram model conditions each word on its immediately preceding word.
-</details>
+<details> <summary>Answer</summary> B. The bigram model conditions each word on its immediately preceding word. </details>
 
 ---
 
 ### Question 5:
 
-*Jelinek–Mercer smoothing parameter \$\lambda\$ blends:*
+*Jelinek–Mercer smoothing parameter* `\lambda` *blends:*
 
-A. Document and background LMs
-B. Unigram and bigram LMs
-C. TF–IDF and BM25
+A. Document and background LMs  
+B. Unigram and bigram LMs  
+C. TF–IDF and BM25  
 D. RNN and Transformer outputs
 
-<details>
-<summary>Answer</summary>
-A. $\lambda$ interpolates between the document-specific model and the collection (background) model.
-</details>
+<details> <summary>Answer</summary> A. `\lambda` interpolates between the document-specific model and the collection (background) model. </details>
 
 ---
 
 ### Question 6:
 
-*High \$\lambda\$ in JM smoothing makes the model:*
+*High* `\lambda` *in JM smoothing makes the model:*
 
-A. More conjunctive
-B. More disjunctive
-C. Ignore collection stats
+A. More conjunctive  
+B. More disjunctive  
+C. Ignore collection stats  
 D. Equivalent to ML estimate
 
-<details>
-<summary>Answer</summary>
-B. A larger $\lambda$ gives more weight to the collection model, making retrieval more disjunctive.
-</details>
+<details> <summary>Answer</summary> B. A larger `\lambda` gives more weight to the collection model, making retrieval more disjunctive. </details>
 
 ---
 
@@ -265,15 +247,12 @@ B. A larger $\lambda$ gives more weight to the collection model, making retrieva
 
 *Trigram LM conditions on:*
 
-A. One previous word
-B. Two previous words
-C. Three previous words
+A. One previous word  
+B. Two previous words  
+C. Three previous words  
 D. No previous words
 
-<details>
-<summary>Answer</summary>
-B. A trigram model uses the two preceding words to predict the next word.
-</details>
+<details> <summary>Answer</summary> B. A trigram model uses the two preceding words to predict the next word. </details>
 
 ---
 
@@ -281,31 +260,25 @@ B. A trigram model uses the two preceding words to predict the next word.
 
 *In the example “click shears click shears,” which two docs tie?*
 
-A. d1 & d2
-B. d1 & d4
-C. d2 & d3
+A. d1 & d2  
+B. d1 & d4  
+C. d2 & d3  
 D. d3 & d4
 
-<details>
-<summary>Answer</summary>
-B. Documents d1 and d4 have the same computed score in that example.
-</details>
+<details> <summary>Answer</summary> B. Documents d1 and d4 have the same computed score in that example. </details>
 
 ---
 
 ### Question 9:
 
-*Without smoothing, \$P(\text{unseen term}\mid d)=\$*
+*Without smoothing,* `P(unseen term | d)=`*
 
-A. \$\tfrac12\$
-B. \$1\$
-C. \$0\$
+A. `½`  
+B. `1`  
+C. `0`  
 D. Undefined
 
-<details>
-<summary>Answer</summary>
-C. An unseen term in the document has zero probability without smoothing.
-</details>
+<details> <summary>Answer</summary> C. An unseen term in the document has zero probability without smoothing. </details>
 
 ---
 
@@ -313,14 +286,12 @@ C. An unseen term in the document has zero probability without smoothing.
 
 *PRP relies on which probability?*
 
-A. \$P(Q\mid d)\$
-B. \$P(d\mid Q)\$
-C. \$P(d)\$
-D. \$P(Q)\$
+A. `P(Q | d)`  
+B. `P(d | Q)`  
+C. `P(d)`  
+D. `P(Q)`
 
-<details>
-<summary>Answer</summary>
-B. The probabilistic retrieval framework ranks by $P(d\mid Q)$, the probability of the document given the query.
-</details>
+<details> <summary>Answer</summary> B. The probabilistic retrieval framework ranks by `P(d | Q)`, the probability of the document given the query. </details>
 
 ---
+

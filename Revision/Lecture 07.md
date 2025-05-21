@@ -2,9 +2,7 @@
 
 1. **What does the Probability Ranking Principle state?**  
    Rank documents in decreasing order of their probability of relevance to the user’s query:  
-$$
-     P(\text{rel} \mid d_1) > P(\text{rel} \mid d_2) > \cdots
-$$
+$$P(\text{rel} \mid d_1) > P(\text{rel} \mid d_2) > \cdots$$
 
 2. **Why is probability theory useful in IR?**  
    It provides a principled way to manage uncertainty and decide which documents are most likely relevant.

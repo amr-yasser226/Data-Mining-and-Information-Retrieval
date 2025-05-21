@@ -175,74 +175,160 @@ If $\gamma$ (or $\beta$) is large, the subtraction (or addition) term can domina
 
 ---
 
+## 10. Additional Notes on Setting Weights & Feedback Effects
+
+1. **How should β and γ be set relative to α when many judged documents are available?**  
+   Set β and γ high compared to α to give more influence to feedback when you have ample relevance judgments.
+
+2. **Why is positive feedback usually more valuable than negative feedback?**  
+   Positive feedback helps reinforce genuinely relevant terms, so systems typically use β > γ; some even set γ = 0 and rely solely on positive judgments.
+
+3. **What happens when γ > 0 in the Rocchio formula?**  
+   Negative components can appear in the updated query vector; in practice, any negative term weights are clamped to zero (ignored).
+
+4. **How does relevance feedback affect recall and precision?**  
+   It can boost both metrics, but it’s especially effective at improving recall when finding more relevant documents is critical; one round often yields large gains, while further rounds offer diminishing returns.
+
+5. **What are the main challenges of explicit relevance feedback?**  
+   1. **Long Queries:** Increases retrieval cost and slows response.  
+   2. **User Effort:** Users may resist providing explicit judgments.  
+   3. **Interpretability:** Results can become harder to explain after feedback.
+
+6. **What unsupervised alternatives exist to explicit feedback?**  
+   1. **Pseudo-Relevance Feedback (PRF):** Automatically assumes the top-k results are relevant to refine the query.  
+   2. **Implicit Feedback:** Leverages user interaction (clicks, dwell time, scrolling) to infer relevance without manual labels.
+
+---
+
+
 ## Multiple-Choice Questions
 
-1. **Which QE method uses WordNet?**  
-   A. Query logs  
-   B. Thesaurus-based  
-   C. Relevance feedback  
-   D. PRF  
-   **Answer:** B
+### Question 1:
 
-2. **Dice’s coefficient of 1 indicates:**  
-   A. No overlap  
-   B. Perfect overlap  
-   C. Independent terms  
-   D. Rare terms  
-   **Answer:** B
+Which QE method uses WordNet?
 
-3. **In Rocchio, increasing $\gamma$ does what?**  
-   A. Emphasizes original query  
-   B. Emphasizes relevant docs  
-   C. Emphasizes non-relevant docs  
-   D. Removes synonyms  
-   **Answer:** C
+ A. Query logs  
+ B. Thesaurus-based  
+ C. Relevance feedback  
+ D. PRF
 
-4. **PRF assumes which documents are relevant?**  
-   A. User-labeled ones  
-   B. Bottom-k ranked  
-   C. Top-k ranked  
-   D. Random sample  
-   **Answer:** C
+<details> <summary>Answer</summary> B. Thesaurus-based. WordNet is a manually curated thesaurus used for expansion. </details>
 
-5. **Implicit feedback includes all EXCEPT:**  
-   A. Clicks  
-   B. Relevance labels  
-   C. Time spent  
-   D. Scroll depth  
-   **Answer:** B
+---
 
-6. **Mutual Information (MI) is zero if terms are:**  
-   A. Perfectly correlated  
-   B. Independent  
-   C. Rare  
-   D. Frequent  
-   **Answer:** B
+### Question 2:
 
-7. **Query drift is caused by:**  
-   A. Too many synonyms  
-   B. Poor expansion terms  
-   C. Long documents  
-   D. Low IDF  
-   **Answer:** B
+Dice’s coefficient of 1 indicates:
 
-8. **A context vector in expansion is:**  
-   A. A document field  
-   B. A virtual doc of co-occurring terms  
-   C. A vector of user preferences  
-   D. A stopword list  
-   **Answer:** B
+ A. No overlap  
+ B. Perfect overlap  
+ C. Independent terms  
+ D. Rare terms
 
-9. **Which expansion is domain-specific by design?**  
-   A. WordNet  
-   B. Automatic thesaurus  
-   C. Query logs  
-   D. Medical thesaurus  
-   **Answer:** D
+<details> <summary>Answer</summary> B. Perfect overlap. A Dice score of 1 means the two term sets are identical. </details>
 
-10. **Relevance feedback iteration is usually:**  
-    A. Unbounded  
-    B. Only once or twice  
-    C. Never repeated  
-    D. Done per document  
-    **Answer:** B
+---
+
+### Question 3:
+
+In Rocchio, increasing γ does what?
+
+ A. Emphasizes original query  
+ B. Emphasizes relevant docs  
+ C. Emphasizes non-relevant docs  
+ D. Removes synonyms
+
+<details> <summary>Answer</summary> C. Emphasizes non-relevant docs. A larger γ increases the subtraction of non-relevant document centroids. </details>
+
+---
+
+### Question 4:
+
+PRF assumes which documents are relevant?
+
+ A. User-labeled ones  
+ B. Bottom-k ranked  
+ C. Top-k ranked  
+ D. Random sample
+
+<details> <summary>Answer</summary> C. Top-k ranked. Pseudo-Relevance Feedback treats the top-k results as relevant. </details>
+
+---
+
+### Question 5:
+
+Implicit feedback includes all EXCEPT:
+
+ A. Clicks  
+ B. Relevance labels  
+ C. Time spent  
+ D. Scroll depth
+
+<details> <summary>Answer</summary> B. Relevance labels. That is explicit feedback, not implicit. </details>
+
+---
+
+### Question 6:
+
+Mutual Information (MI) is zero if terms are:
+
+ A. Perfectly correlated  
+ B. Independent  
+ C. Rare  
+ D. Frequent
+
+<details> <summary>Answer</summary> B. Independent. MI measures deviation from independence; zero means no association. </details>
+
+---
+
+### Question 7:
+
+Query drift is caused by:
+
+ A. Too many synonyms  
+ B. Poor expansion terms  
+ C. Long documents  
+ D. Low IDF
+
+<details> <summary>Answer</summary> B. Poor expansion terms. Irrelevant terms in the expanded query can steer results off-topic. </details>
+
+---
+
+### Question 8:
+
+A context vector in expansion is:
+
+ A. A document field  
+ B. A virtual doc of co-occurring terms  
+ C. A vector of user preferences  
+ D. A stopword list
+
+<details> <summary>Answer</summary> B. A virtual doc of co-occurring terms. It aggregates term contexts for expansion. </details>
+
+---
+
+### Question 9:
+
+Which expansion is domain-specific by design?
+
+ A. WordNet  
+ B. Automatic thesaurus  
+ C. Query logs  
+ D. Medical thesaurus
+
+<details> <summary>Answer</summary> D. Medical thesaurus. Domain-specific thesauri target specialized vocabularies. </details>
+
+---
+
+### Question 10:
+
+Relevance feedback iteration is usually:
+
+ A. Unbounded  
+ B. Only once or twice  
+ C. Never repeated  
+ D. Done per document
+
+<details> <summary>Answer</summary> B. Only once or twice. Empirically, one round yields large gains and additional rounds offer marginal benefit. </details>
+
+---

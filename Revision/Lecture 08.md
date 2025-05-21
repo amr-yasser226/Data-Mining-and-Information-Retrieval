@@ -104,12 +104,13 @@
    Shift the query vector toward relevant documents and away from non-relevant ones in VSM.
 
 2. **Write the Rocchio formula.**  
-$$\vec{q}_{\text{new}} = \alpha\vec{q}_0 + \beta\frac{1}{|D_r|}\sum_{d\in D_r}\vec{d} - \gamma\frac{1}{|D_{nr}|}\sum_{d\in D_{nr}}\vec{d}$$
+$$\vec{q}_{\text{new}} = \alpha\vec{q}_0 + \beta\frac{1}{|D_r|}\sum_{d\in D_r}\vec{d}$$
+$$\gamma\frac{1}{|D_{nr}|}\sum_{d\in D_{nr}}\vec{d}$$
 
-3. **What roles do $\alpha,\beta,\gamma$ play?**  
+4. **What roles do $\alpha,\beta,\gamma$ play?**  
    Weights for original query, positive feedback, negative feedback.
 
-4. **Why might weights go negative?**  
+5. **Why might weights go negative?**  
    If $\gamma$ is large, subtraction can yield negative term weights (then clamped to zero).
 
 ---

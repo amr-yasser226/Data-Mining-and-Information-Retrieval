@@ -104,8 +104,32 @@
    Shift the query vector toward relevant documents and away from non-relevant ones in VSM.
 
 2. **Write the Rocchio formula.**  
-$$\vec{q}_{\text{new}} = \alpha\vec{q}_0 + \beta\frac{1}{|D_r|}\sum_{d\in D_r}\vec{d}$$
-$$\gamma\frac{1}{|D_{nr}|}\sum_{d\in D_{nr}}\vec{d}$$
+
+**Given**  
+- **Initial query vector**: \(\vec{q}_0\)  
+- **Relevant document set**: \(D_r\)  
+- **Non-relevant document set**: \(D_{nr}\)  
+- **Weighting parameters**: \(\alpha, \beta, \gamma\)  
+
+**Compute**  
+\[
+\vec{q}_{\text{new}}
+= 
+\underbrace{\alpha\,\vec{q}_0}_{\substack{\text{original query}\\\text{component}}}
+\;+\;
+\underbrace{\beta\,\frac{1}{|D_r|}\sum_{\,d\in D_r}\vec{d}}_{\substack{\text{average of}\\\text{relevant docs}}}
+\;-\;
+\underbrace{\gamma\,\frac{1}{|D_{nr}|}\sum_{\,d\in D_{nr}}\vec{d}}_{\substack{\text{average of}\\\text{non-relevant docs}}}
+\]
+
+**Where**  
+- \(\vec{q}_0\) is the user’s original query vector.  
+- \(D_r\) is the set of documents judged relevant.  
+- \(D_{nr}\) is the set of documents judged non-relevant.  
+- \(\alpha\) controls retention of the original query.  
+- \(\beta\) controls reinforcement from relevant documents.  
+- \(\gamma\) controls suppression from non-relevant documents.  
+
 
 4. **What roles do $\alpha,\beta,\gamma$ play?**  
    Weights for original query, positive feedback, negative feedback.

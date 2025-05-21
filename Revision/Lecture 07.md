@@ -1,188 +1,256 @@
+## Information Retrieval Concepts Cheat Sheet
+
+### Table of Contents
+
+1. [Probability Ranking Principle (PRP)](#prp)
+2. [Language Models for Ranking](#lms)
+3. [Unigram LM: Detailed Example](#unigram-example)
+4. [Bigram & Trigram Language Models](#ngram-lms)
+5. [Smoothing Techniques](#smoothing)
+6. [Multiple-Choice Review Questions](#mcqs)
+
+---
+
+<a name="prp"></a>
+
 ## 1. Probability Ranking Principle (PRP)
 
-1. **What does the Probability Ranking Principle state?**  
-   Rank documents in decreasing order of their probability of relevance to the user’s query:  
-$$P(\text{rel} \mid d_1) > P(\text{rel} \mid d_2) > \cdots$$
+**Principle:** Documents should be sorted in descending order by their probability of relevance to the user’s query.
 
-2. **Why is probability theory useful in IR?**  
-   It provides a principled way to manage uncertainty and decide which documents are most likely relevant.
+$\text{If }P(\mathrm{rel}\mid d_1) > P(\mathrm{rel}\mid d_2) > \cdots, \text{ then rank }d_1, d_2, \dots$\\
 
-3. **Example:**  
-   Query: “machine learning basics”  
-   - Document A: $0.8$  
-   - Document B: $0.6$  
-   - Document C: $0.4$  
-   Ranking: A > B > C
+**Why use PRP?**
 
----
+* Provides a formal, probabilistic framework for ranking under uncertainty.
+* Guarantees maximum effectiveness under certain assumptions.
 
-## 2. Language Models in IR
+**Simple Example:**
 
-1. **How is a Language Model (LM) used for ranking?**  
-   Treat each document $d$ as its own LM $M_d$ and rank by $P(Q \mid M_d)$, the probability that $M_d$ generates the query $Q$.
-
-2. **What is a unigram LM?**  
-   A model where each word is generated independently with probability estimated from term frequency:
-$$
-     P(Q \mid M_d) = \prod_{w \in Q} P(w \mid M_d)
-$$
-
-3. **Compute $P(Q \mid M_d)$ for “data science” in “data science is powerful”:**  
-   Each term count = 1 of 4 words → $P(w\mid d)=\tfrac14$.  
-$$   P(\text{“data science”}\mid d)=\tfrac14\times\tfrac14=0.0625
-$$
+| Document | \$P(\mathrm{rel}\mid d)\$ | Rank |
+| :------: | :-----------------------: | :--: |
+|     A    |            0.80           |   1  |
+|     B    |            0.60           |   2  |
+|     C    |            0.40           |   3  |
 
 ---
 
-## 3. Example: Unigram LM Ranking
+<a name="lms"></a>
 
-Documents:
-1. “click go the shears boys click click click”  
-2. “click click”  
-3. “metal here”  
-4. “metal shears click here”  
+## 2. Language Models for Ranking
 
-Query: “click shears click shears”
+**Approach:**
 
-| d   | P(click\|$d$) | P(shears\|$d$) | P(Q\|$d$)                 |
-| --- | ------------- | -------------- | ------------------------- |
-| d1  | 4/8 = 0.5     | 1/8 = 0.125    | $0.5^2\cdot0.125^2=0.004$ |
-| d2  | 2/2 = 1.0     | 0              | 0                         |
-| d3  | 0             | 0              | 0                         |
-| d4  | 1/4 = 0.25    | 1/4 = 0.25     | $0.25^4=0.004$            |
+* Treat each document $d$ as a language model $M_d$.
+* Score documents by the likelihood that $M_d$ would generate the query $Q$:
 
-Ranking: d1 = d4 > d2 = d3
+$\text{score}(d) = P(Q \mid M_d).$
+
+**Unigram Assumption:** Words in the query are generated independently:
+
+$P(Q \mid M_d) = \prod_{w \in Q} P(w \mid M_d).$
 
 ---
 
-## 4. Bigram & Trigram LMs
+<a name="unigram-example"></a>
 
-1. **Bigram LM:**  
+## 3. Unigram LM: Detailed Example
+
+**Scenario:**
+
+* Document text: *"data science is powerful"*
+* Query: *"data science"*
+
+Term counts in the document (4 words total):
+
+* $\text{count}({\text{data}})=1$
+* $\text{count}({\text{science}})=1$
+
+Unigram probabilities:
+
 $$
-     P(w_1w_2w_3\mid d)=P(w_1\mid d)\prod_{i=2}^3P(w_i\mid w_{i-1},d)
-$$  
-   Example: Document “deep learning works, deep networks perform”  
-$$
-     P(\text{“deep networks”}\mid d)
-     =P(\text{deep}\mid d)\,
-     P(\text{networks}\mid \text{deep},d)= $$$$\tfrac26\times\tfrac16=0.167
+P(w \mid d) = \frac{\text{count}(w, d)}{|d|} = \frac{1}{4} = 0.25 \quad \text{for each term.}
 $$
 
-2. **Trigram LM:**  
+Score computation:
+
 $$
-     P(w_1w_2w_3\mid d)
-     =P(w_1\mid d)\,P(w_2\mid w_1,d)\,P(w_3\mid w_1w_2,d)
-$$  
-   Example: “artificial intelligence systems work” → query “artificial intelligence systems”  
-$$
-     P(Q\mid d)=\tfrac14\times1\times1=0.25
+P(\text{"data science"} \mid d) = 0.25 \times 0.25 = 0.0625.
 $$
 
 ---
 
-## 5. Smoothing
+<a name="ngram-lms"></a>
 
-1. **Why smooth?**  
-   To assign non-zero probability to unseen terms and avoid zeroing out $P(Q\mid d)$.
+## 4. Bigram & Trigram Language Models
 
-2. **Jelinek–Mercer smoothing:**  
+**Bigram LM:**
+
 $$
-     P_{\lambda}(w\mid d)
-     =(1-\lambda)P_{\mathrm{ML}}(w\mid d)
-     +\lambda\,P(w\mid\text{collection})
+P(w_1 w_2 \dots w_n \mid d) = P(w_1 \mid d) \prod_{i=2}^n P(w_i \mid w_{i-1}, d).
 $$
 
-3. **Effect of $\lambda$:**  
-   - Low $\lambda$: conjunctive-like (favor documents containing all query terms)  
-   - High $\lambda$: disjunctive-like (suitable for long queries)
+**Bigram Example:**
 
-4. **Example:**  
-   Documents:  
-   - d1: “Jackson … entertainers …” (11 words, “jackson” count=1)  
-   - d2: “Michael Jackson anointed himself King of Pop” (7 words, “michael”=1, “jackson”=1)  
-   Query: “Michael Jackson”, $\lambda=1/3$  
+* Document: *"deep learning works, deep networks perform"*
+* Probability of *"deep networks"*:
+
 $$
-     P(Q\mid d1)
-     =\bigl[\tfrac23\times0+\tfrac13\times\tfrac1{18}\bigr]
-      \times\bigl[\tfrac23\times\tfrac1{11}+\tfrac13\times\tfrac2{18}\bigr]
-$$  
+P(\text{deep networks} \mid d)
+= P(\text{deep} \mid d) \times P(\text{networks} \mid \text{deep}, d)
+= \frac{2}{6} \times \frac{1}{6} \approx 0.167.
 $$
-     P(Q\mid d2)
-     =\bigl[\tfrac23\times\tfrac1{7}+\tfrac13\times\tfrac1{18}\bigr]
-      \times\bigl[\tfrac23\times\tfrac1{7}+\tfrac23\times\tfrac2{18}\bigr]
-$$  
-   Ranking: d2 > d1
+
+**Trigram LM:**
+
+$$
+P(w_1 w_2 \dots w_n \mid d) = P(w_1 \mid d) \prod_{i=2}^n P(w_i \mid w_{i-2} w_{i-1}, d).
+$$
+
+**Trigram Example:**
+
+* Document: *"artificial intelligence systems work"*
+* Query: *"artificial intelligence systems"*
+
+Assuming counts give:
+$P(\text{artificial})=1/4$,
+$P(\text{intelligence}\mid \text{artificial})=1$,
+$P(\text{systems}\mid \text{artificial intelligence})=1$:
+
+$$
+P(Q \mid d) = \frac{1}{4} \times 1 \times 1 = 0.25.
+$$
 
 ---
 
-## Multiple-Choice Questions
+<a name="smoothing"></a>
 
-1. **PRP ranks documents by:**  
-   A. Decreasing length  
-   B. Decreasing probability of relevance  
-   C. Increasing tf–idf score  
-   D. Random order  
-   **Answer:** B
+## 5. Smoothing Techniques
 
-2. **Unigram LM assumes:**  
-   A. Word probabilities independent  
-   B. Dependence on previous word  
-   C. Dependence on two previous words  
-   D. Document length normalization  
-   **Answer:** A
+**Motivation:** Without smoothing, any unseen query term in a document assigns a zero probability to the entire query.
 
-3. **Without smoothing, a query with an unseen term yields:**  
-   A. High probability  
-   B. Zero probability  
-   C. One  
-   D. Negative probability  
-   **Answer:** B
+**Jelinek–Mercer (Linear) Smoothing:**
 
-4. **Bigram probability $P(w_i\mid w_{i-1},d)$ captures:**  
-   A. Document length  
-   B. Previous-word dependence  
-   C. Term frequency only  
-   D. TF–IDF weighting  
-   **Answer:** B
+$$
+P_{\lambda}(w \mid d) = (1 - \lambda) P_{\mathrm{ML}}(w \mid d)
++ \lambda \, P(w \mid \text{collection}).
+$$
 
-5. **Jelinek–Mercer smoothing parameter $\lambda$ blends:**  
-   A. Document and background LMs  
-   B. Unigram and bigram LMs  
-   C. TF–IDF and BM25  
-   D. RNN and Transformer outputs  
-   **Answer:** A
+* $\lambda \in [0,1]$ blends the document model and the background (collection) model.
+* **Low** $\lambda$: leans on document evidence (conjunctive behavior).
+* **High** $\lambda$: leans on collection statistics (disjunctive behavior).
 
-6. **High $\lambda$ in JM smoothing makes the model:**  
-   A. More conjunctive  
-   B. More disjunctive  
-   C. Ignore collection stats  
-   D. Equivalent to ML estimate  
-   **Answer:** B
+**Illustrative Example:**
 
-7. **Trigram LM conditions on:**  
-   A. One previous word  
-   B. Two previous words  
-   C. Three previous words  
-   D. No previous words  
-   **Answer:** B
+* Documents: d1 (11 words, one "jackson"), d2 (7 words, "michael"=1, "jackson"=1).
+* Collection frequencies: total words = 25, $\mathrm{count}(\text{jackson})=2$.
+* Query: *"Michael Jackson"*, $\lambda = 1/3$.
 
-8. **In the example “click shears click shears,” which docs tie in score?**  
-   A. d1 & d2  
-   B. d1 & d4  
-   C. d2 & d3  
-   D. d3 & d4  
-   **Answer:** B
+$$
+P(Q \mid d_1)
+= \Bigl[(1-\tfrac{1}{3})\times0 + \tfrac{1}{3}\times\tfrac{2}{25}\Bigr]
+\times \Bigl[(1-\tfrac{1}{3})\times\tfrac{1}{11} + \tfrac{1}{3}\times\tfrac{2}{25}\Bigr].
+$$
 
-9. **Without smoothing, $P(\text{unseen term}\mid d)=$**  
-   A. $\tfrac12$  
-   B. 1  
-   C. 0  
-   D. undefined  
-   **Answer:** C
+$$
+P(Q \mid d_2)
+= \Bigl[(1-\tfrac{1}{3})\times\tfrac{1}{7} + \tfrac{1}{3}\times\tfrac{2}{25}\Bigr]
+\times \Bigl[(1-\tfrac{1}{3})\times\tfrac{1}{7} + \tfrac{1}{3}\times\tfrac{2}{25}\Bigr].
+$$
 
-10. **PRP relies on which probability?**  
-    A. $P(Q\mid d)$  
-    B. $P(d\mid Q)$  
-    C. $P(d)$  
-    D. $P(Q)$  
-    **Answer:** B
+Ranking: $d_2 > d_1$.
+
+---
+
+<a name="mcqs"></a>
+
+## 6. Multiple-Choice Review Questions
+
+1. **PRP ranks documents by:**
+
+   * A. Decreasing length
+   * B. Decreasing probability of relevance
+   * C. Increasing tf–idf score
+   * D. Random order
+
+   > **Answer:** B
+
+2. **Unigram LM assumes:**
+
+   * A. Word probabilities are independent
+   * B. Dependence on the previous word
+   * C. Dependence on two previous words
+   * D. Document length normalization
+
+   > **Answer:** A
+
+3. **Without smoothing, a query with an unseen term yields:**
+
+   * A. High probability
+   * B. Zero probability
+   * C. One
+   * D. Negative probability
+
+   > **Answer:** B
+
+4. **Bigram probability \$P(w\_i\mid w\_{i-1},d)\$ captures:**
+
+   * A. Document length
+   * B. Previous-word dependence
+   * C. Term frequency only
+   * D. TF–IDF weighting
+
+   > **Answer:** B
+
+5. **Jelinek–Mercer smoothing parameter \$\lambda\$ blends:**
+
+   * A. Document and background LMs
+   * B. Unigram and bigram LMs
+   * C. TF–IDF and BM25
+   * D. RNN and Transformer outputs
+
+   > **Answer:** A
+
+6. **High \$\lambda\$ in JM smoothing makes the model:**
+
+   * A. More conjunctive
+   * B. More disjunctive
+   * C. Ignore collection stats
+   * D. Equivalent to ML estimate
+
+   > **Answer:** B
+
+7. **Trigram LM conditions on:**
+
+   * A. One previous word
+   * B. Two previous words
+   * C. Three previous words
+   * D. No previous words
+
+   > **Answer:** B
+
+8. **In the example “click shears click shears,” which two docs tie?**
+
+   * A. d1 & d2
+   * B. d1 & d4
+   * C. d2 & d3
+   * D. d3 & d4
+
+   > **Answer:** B
+
+9. **Without smoothing, \$P(\text{unseen term}\mid d)=\$**
+
+   * A. \$\tfrac12\$
+   * B. \$1\$
+   * C. \$0\$
+   * D. Undefined
+
+   > **Answer:** C
+
+10. **PRP relies on which probability?**
+
+    * A. \$P(Q\mid d)\$
+    * B. \$P(d\mid Q)\$
+    * C. \$P(d)\$
+    * D. \$P(Q)\$
+
+    > **Answer:** B

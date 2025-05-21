@@ -97,7 +97,7 @@ $$
 $$
 P(\text{deep networks} \mid d)
 = P(\text{deep} \mid d) \times P(\text{networks} \mid \text{deep}, d)
-= \frac{2}{6} \times \frac{1}{6} \approx 0.167.
+= \frac{2}{6} \times \frac{1}{2} \approx 0.167.
 $$
 
 **Trigram LM:**

@@ -114,15 +114,12 @@ Shift the query vector toward relevant documents and away from non-relevant ones
 - Weighting parameters: $\alpha, \beta, \gamma$
 
 **Compute**  
-$$
-\vec{q}_{\mathrm{new}}
-= \alpha\,\vec{q}_0
-\;+\;
-\beta\,\frac{1}{\lvert D_r\rvert}\sum_{d\in D_r}\vec{d}
-\;-\;
-\gamma\,\frac{1}{\lvert D_{nr}\rvert}\sum_{d\in D_{nr}}\vec{d}
-$$
-
+<p align="center">
+  <strong>q<sub>new</sub> =</strong>
+  &alpha; &middot; q<sub>0</sub>
+  + &beta; &middot; (1 / |D<sub>r</sub>|) &sum;<sub>d∈D<sub>r</sub></sub> d
+  &minus; &gamma; &middot; (1 / |D<sub>nr</sub>|) &sum;<sub>d∈D<sub>nr</sub></sub> d
+</p>
 
 ---
 

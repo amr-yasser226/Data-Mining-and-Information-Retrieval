@@ -115,15 +115,14 @@ Shift the query vector toward relevant documents and away from non-relevant ones
 
 **Compute**  
 $$
-\boxed{
 \vec{q}_{\mathrm{new}}
 = \alpha\,\vec{q}_0
 \;+\;
 \beta\,\frac{1}{\lvert D_r\rvert}\sum_{d\in D_r}\vec{d}
 \;-\;
 \gamma\,\frac{1}{\lvert D_{nr}\rvert}\sum_{d\in D_{nr}}\vec{d}
-}
 $$
+
 
 ---
 

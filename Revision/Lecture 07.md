@@ -176,7 +176,7 @@ D. Random order
 
 <details>
 <summary>Answer</summary>
-B. PRP ranks documents in order of decreasing probability of relevance.
+B. The probabilistic retrieval framework ranks documents by decreasing probability of relevance.
 </details>
 
 ---
@@ -208,7 +208,7 @@ D. Negative probability
 
 <details>
 <summary>Answer</summary>
-B. If a term never appears in the document, its probability is zero without smoothing.
+B. Without smoothing, encountering an unseen term gives the document zero probability.
 </details>
 
 ---
@@ -224,7 +224,7 @@ D. TF–IDF weighting
 
 <details>
 <summary>Answer</summary>
-B. The bigram model conditions each word on the immediately preceding word.
+B. The bigram model conditions each word on its immediately preceding word.
 </details>
 
 ---
@@ -240,7 +240,7 @@ D. RNN and Transformer outputs
 
 <details>
 <summary>Answer</summary>
-A. $\lambda$ controls interpolation between the document-specific model and the collection (background) model.
+A. $\lambda$ interpolates between the document-specific model and the collection (background) model.
 </details>
 
 ---
@@ -256,7 +256,7 @@ D. Equivalent to ML estimate
 
 <details>
 <summary>Answer</summary>
-B. A larger $\lambda$ places more weight on the collection model, making retrieval more disjunctive.
+B. A larger $\lambda$ gives more weight to the collection model, making retrieval more disjunctive.
 </details>
 
 ---

@@ -130,8 +130,10 @@ $$
 
 **Jelinek–Mercer (Linear) Smoothing:**
 
-$$P_{\lambda}(w \mid d) = (1 - \lambda) P_{\mathrm{ML}}(w \mid d)
-+ \lambda \, P(w \mid \text{collection}).$$
+$$
+P_{\lambda}(w \mid d) = (1 - \lambda) P_{\mathrm{ML}}(w \mid d)
+$$
+* $\lambda \, P(w \mid \text{collection}).$
 
 * $\lambda \in [0,1]$ blends the document model and the background (collection) model.
 * **Low** $\lambda$: leans on document evidence (conjunctive behavior).

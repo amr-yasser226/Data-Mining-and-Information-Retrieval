@@ -291,7 +291,7 @@ B. `P(d | Q)`
 C. `P(d)`  
 D. `P(Q)`
 
-<details> <summary>Answer</summary> B. The probabilistic retrieval framework ranks by `P(d | Q)`, the probability of the document given the query. </details>
+<details> <summary>Answer</summary> A. The probabilistic retrieval framework ranks by `P(Q | d)`, the probability of the query given the document. </details>
 
 ---
 

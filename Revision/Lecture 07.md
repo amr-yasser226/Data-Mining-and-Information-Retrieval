@@ -165,92 +165,162 @@ Ranking: $d_2 > d_1$.
 
 ## 6. Multiple-Choice Review Questions
 
-1. **PRP ranks documents by:**
+### Question 1:
 
-   * A. Decreasing length
-   * B. Decreasing probability of relevance
-   * C. Increasing tf–idf score
-   * D. Random order
+*PRP ranks documents by:*
 
-   > **Answer:** B
+A. Decreasing length
+B. Decreasing probability of relevance
+C. Increasing tf–idf score
+D. Random order
 
-2. **Unigram LM assumes:**
+<details>
+<summary>Answer</summary>
+B. PRP ranks documents in order of decreasing probability of relevance.
+</details>
 
-   * A. Word probabilities are independent
-   * B. Dependence on the previous word
-   * C. Dependence on two previous words
-   * D. Document length normalization
+---
 
-   > **Answer:** A
+### Question 2:
 
-3. **Without smoothing, a query with an unseen term yields:**
+*Unigram LM assumes:*
 
-   * A. High probability
-   * B. Zero probability
-   * C. One
-   * D. Negative probability
+A. Word probabilities are independent
+B. Dependence on the previous word
+C. Dependence on two previous words
+D. Document length normalization
 
-   > **Answer:** B
+<details>
+<summary>Answer</summary>
+A. A unigram language model treats each word’s probability as independent of context.
+</details>
 
-4. **Bigram probability \$P(w\_i\mid w\_{i-1},d)\$ captures:**
+---
 
-   * A. Document length
-   * B. Previous-word dependence
-   * C. Term frequency only
-   * D. TF–IDF weighting
+### Question 3:
 
-   > **Answer:** B
+*Without smoothing, a query with an unseen term yields:*
 
-5. **Jelinek–Mercer smoothing parameter \$\lambda\$ blends:**
+A. High probability
+B. Zero probability
+C. One
+D. Negative probability
 
-   * A. Document and background LMs
-   * B. Unigram and bigram LMs
-   * C. TF–IDF and BM25
-   * D. RNN and Transformer outputs
+<details>
+<summary>Answer</summary>
+B. If a term never appears in the document, its probability is zero without smoothing.
+</details>
 
-   > **Answer:** A
+---
 
-6. **High \$\lambda\$ in JM smoothing makes the model:**
+### Question 4:
 
-   * A. More conjunctive
-   * B. More disjunctive
-   * C. Ignore collection stats
-   * D. Equivalent to ML estimate
+*Bigram probability \$P(w\_i\mid w\_{i-1},d)\$ captures:*
 
-   > **Answer:** B
+A. Document length
+B. Previous-word dependence
+C. Term frequency only
+D. TF–IDF weighting
 
-7. **Trigram LM conditions on:**
+<details>
+<summary>Answer</summary>
+B. The bigram model conditions each word on the immediately preceding word.
+</details>
 
-   * A. One previous word
-   * B. Two previous words
-   * C. Three previous words
-   * D. No previous words
+---
 
-   > **Answer:** B
+### Question 5:
 
-8. **In the example “click shears click shears,” which two docs tie?**
+*Jelinek–Mercer smoothing parameter \$\lambda\$ blends:*
 
-   * A. d1 & d2
-   * B. d1 & d4
-   * C. d2 & d3
-   * D. d3 & d4
+A. Document and background LMs
+B. Unigram and bigram LMs
+C. TF–IDF and BM25
+D. RNN and Transformer outputs
 
-   > **Answer:** B
+<details>
+<summary>Answer</summary>
+A. $\lambda$ controls interpolation between the document-specific model and the collection (background) model.
+</details>
 
-9. **Without smoothing, \$P(\text{unseen term}\mid d)=\$**
+---
 
-   * A. \$\tfrac12\$
-   * B. \$1\$
-   * C. \$0\$
-   * D. Undefined
+### Question 6:
 
-   > **Answer:** C
+*High \$\lambda\$ in JM smoothing makes the model:*
 
-10. **PRP relies on which probability?**
+A. More conjunctive
+B. More disjunctive
+C. Ignore collection stats
+D. Equivalent to ML estimate
 
-    * A. \$P(Q\mid d)\$
-    * B. \$P(d\mid Q)\$
-    * C. \$P(d)\$
-    * D. \$P(Q)\$
+<details>
+<summary>Answer</summary>
+B. A larger $\lambda$ places more weight on the collection model, making retrieval more disjunctive.
+</details>
 
-    > **Answer:** B
+---
+
+### Question 7:
+
+*Trigram LM conditions on:*
+
+A. One previous word
+B. Two previous words
+C. Three previous words
+D. No previous words
+
+<details>
+<summary>Answer</summary>
+B. A trigram model uses the two preceding words to predict the next word.
+</details>
+
+---
+
+### Question 8:
+
+*In the example “click shears click shears,” which two docs tie?*
+
+A. d1 & d2
+B. d1 & d4
+C. d2 & d3
+D. d3 & d4
+
+<details>
+<summary>Answer</summary>
+B. Documents d1 and d4 have the same computed score in that example.
+</details>
+
+---
+
+### Question 9:
+
+*Without smoothing, \$P(\text{unseen term}\mid d)=\$*
+
+A. \$\tfrac12\$
+B. \$1\$
+C. \$0\$
+D. Undefined
+
+<details>
+<summary>Answer</summary>
+C. An unseen term in the document has zero probability without smoothing.
+</details>
+
+---
+
+### Question 10:
+
+*PRP relies on which probability?*
+
+A. \$P(Q\mid d)\$
+B. \$P(d\mid Q)\$
+C. \$P(d)\$
+D. \$P(Q)\$
+
+<details>
+<summary>Answer</summary>
+B. The probabilistic retrieval framework ranks by $P(d\mid Q)$, the probability of the document given the query.
+</details>
+
+---
